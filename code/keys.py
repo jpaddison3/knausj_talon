@@ -1,6 +1,6 @@
 from typing import Set
 
-from talon import Module, Context, actions
+from talon import Module, Context, actions, noise
 import sys
 
 default_alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split(
@@ -88,9 +88,12 @@ ctx = Context()
 ctx.lists["self.modifier_key"] = {
     "alt": "alt",
     "command": "cmd",
+    "mando": "cmd",
     "control": "ctrl",  #'troll':   'ctrl',
     "option": "alt",
     "shift": "shift",  #'sky':     'shift',
+    "control": "ctrl",  #'troll':   'ctrl',
+    "troll": "ctrl",  #'troll':   'ctrl',
     "super": "super",
 }
 alphabet = dict(zip(default_alphabet, letters_string))
@@ -131,10 +134,11 @@ ctx.lists["self.symbol_key"] = {
     "left paren": "(",
     "R paren": ")",
     "right paren": ")",
-    "brace": "{",
-    "left brace": "{",
-    "R brace": "}",
-    "right brace": "}",
+    "right pra": ")",
+    # "brace": "{",
+    # "left brace": "{",
+    # "R brace": "}",
+    # "right brace": "}",
     "angle": "<",
     "left angle": "<",
     "less than": "<",
