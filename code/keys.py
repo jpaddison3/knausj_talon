@@ -174,7 +174,6 @@ ctx.lists["self.arrow_key"] = {
 }
 
 simple_keys = [
-    "end",
     "enter",
     "escape",
     "home",
@@ -189,6 +188,7 @@ alternate_keys = {
     "delete": "backspace",
     "forward delete": "delete",
     #'junk': 'backspace',
+    "ending": "end",
 }
 keys = {k: k for k in simple_keys}
 keys.update(alternate_keys)
@@ -270,4 +270,3 @@ class Actions:
     def get_alphabet() -> dict:
         """Provides the alphabet dictionary"""
         return alphabet
-

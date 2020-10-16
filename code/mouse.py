@@ -266,7 +266,8 @@ def on_pop(active):
         not eye_zoom_mouse.zoom_mouse.enabled
     ):
         if setting_mouse_enable_pop_click.get() >= 1:
-            ctrl.mouse_click(button=0, hold=16000)
+            # ctrl.mouse_click(button=0, hold=16000)
+            pass
 
 
 noise.register("pop", on_pop)
