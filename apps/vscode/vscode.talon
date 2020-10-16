@@ -167,6 +167,14 @@ git stage all: user.vscode("git.stageAll")
 git unstage: user.vscode("git.unstage")
 git unstage all: user.vscode("git.unstageAll")
 
+# Merge conflict resolution
+# VSCode has some pretty sweet builtins for resolving merge conflicts. But by
+# default they involve a lot of clicking, so I made these commands.
+merge next: user.vscode("merge-conflict.next")
+merge incoming: user.vscode("merge-conflict.accept.incoming")
+merge current: user.vscode("merge-conflict.accept.current")
+merge both: user.vscode("merge-conflict.accept.both")
+
 #Debugging
 break point: user.vscode("editor.debug.action.toggleBreakpoint")
 step over: user.vscode("workbench.action.debug.stepOver")
@@ -195,5 +203,3 @@ copy line up: user.vscode("editor.action.copyLinesUpAction")
 #Expand/Shrink AST Selection
 select less: user.vscode("editor.action.smartSelect.shrink")
 select (more|this): user.vscode("editor.action.smartSelect.expand")
-  
-  
