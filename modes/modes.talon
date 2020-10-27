@@ -15,6 +15,9 @@ sleep all:
     user.engine_sleep()
 talon sleep: speech.disable()
 talon wake: speech.enable()
+talon light:
+    speech.enable()
+    user.mouse_wake()
 dragon mode: speech.disable()
 talon mode: speech.enable()
 ^dictation mode$:

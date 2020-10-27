@@ -3,6 +3,7 @@ from typing import Set
 from talon import Module, Context, actions, noise
 import sys
 
+# fox
 default_alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split(
     " "
 )
@@ -182,11 +183,13 @@ simple_keys = [
     "pageup",
     "space",
     "tab",
+    "backspace",
+    "delete",
 ]
 
 alternate_keys = {
-    "delete": "backspace",
-    "forward delete": "delete",
+    # "delete": "backspace",
+    # "forward delete": "delete",
     #'junk': 'backspace',
     "ending": "end",
 }

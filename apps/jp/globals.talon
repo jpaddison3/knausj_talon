@@ -1,7 +1,6 @@
 #
 -
 note new: key("cmd-ctrl-n")
-clipboard: key("cmd-alt-v")
 kill: key("backspace")
 junk: key("backspace")
 clobber: key("alt-backspace")
@@ -13,5 +12,15 @@ face: key("space")
 spacer: key("space")
 say sir: key("space")
 moji: key("cmd-ctrl-space")
-full screen: key("cmd-ctrl-m")
 untab: key("shift-tab")
+twidle: key("~")
+scape: key("escape")
+# quit: key("escape")
+
+# These rely on BetterTouchTool
+clipboard: key("cmd-alt-v")
+window full: key("cmd-ctrl-m")
+screen lock:
+    user.mouse_sleep()
+    speech.disable()
+    key("cmd-ctrl-alt-l")

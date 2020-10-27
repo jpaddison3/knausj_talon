@@ -105,8 +105,8 @@ class Actions:
 
     def mouse_wake():
         """Enable control mouse, zoom mouse, and disables cursor"""
+        toggle_control(True)
         eye_zoom_mouse.toggle_zoom_mouse(True)
-        # eye_mouse.control_mouse.enable()
         if setting_mouse_wake_hides_cursor.get() >= 1:
             show_cursor_helper(False)
 
@@ -116,6 +116,7 @@ class Actions:
 
     def mouse_toggle_control_mouse():
         """Toggles control mouse"""
+        print(" --jp-- control_mouse setting to:", not config.control_mouse)
         toggle_control(not config.control_mouse)
 
     def mouse_toggle_camera_overlay():
@@ -124,6 +125,7 @@ class Actions:
 
     def mouse_toggle_zoom_mouse():
         """Toggles zoom mouse"""
+        print(" --jp-- toggle_zoom_mouse setting to:", not eye_zoom_mouse.zoom_mouse.enabled)
         eye_zoom_mouse.toggle_zoom_mouse(not eye_zoom_mouse.zoom_mouse.enabled)
 
     def mouse_cancel_zoom_mouse():
@@ -148,8 +150,8 @@ class Actions:
 
     def mouse_sleep():
         """Disables control mouse, zoom mouse, and re-enables cursor"""
-        eye_zoom_mouse.toggle_zoom_mouse(False)
         toggle_control(False)
+        eye_zoom_mouse.toggle_zoom_mouse(False)
         show_cursor_helper(True)
         stop_scroll()
         if 1 in ctrl.mouse_buttons_down():
@@ -207,6 +209,22 @@ class Actions:
         rect = ui.active_window().rect
         ctrl.mouse_move(rect.left + (rect.width / 2), rect.top + (rect.height / 2))
 
+    def mouse_zoom_or_click():
+        """Trigger zoom mouse"""
+        print(" --jp-- zoom mouse", eye_zoom_mouse.zoom_mouse.enabled)
+        full_conditional = (
+            eye_zoom_mouse.zoom_mouse.enabled
+            and eye_mouse.mouse.attached_tracker is not None
+        )
+        print("  --jp-- for_conditional", full_conditional)
+        if (
+            eye_zoom_mouse.zoom_mouse.enabled
+            and eye_mouse.mouse.attached_tracker is not None
+        ):
+            eye_zoom_mouse.zoom_mouse.on_pop(eye_zoom_mouse.zoom_mouse.state)
+        else:
+            ctrl.mouse_click(button=0, hold=16000)
+
 
 def show_cursor_helper(show):
     """Show/hide the cursor"""
@@ -245,29 +263,29 @@ def show_cursor_helper(show):
 
 def on_hiss(active):
     print("--jp-- on_hiss")
-    if gaze_job or scroll_job:
-        stop_scroll()
-    elif (
-        not eye_zoom_mouse.zoom_mouse.enabled
-    ):
-        # ctrl.mouse_click(button=0, hold=16000)
-        pass
+    # if gaze_job or scroll_job:
+    #     stop_scroll()
+    # elif (
+    #     not eye_zoom_mouse.zoom_mouse.enabled
+    # ):
+    #     # ctrl.mouse_click(button=0, hold=16000)
+    #     pass
 
 
 noise.register("hiss", on_hiss)
 
 
 def on_pop(active):
-    print("--jp-- on_pop")
-    if gaze_job or scroll_job:
-        if setting_mouse_enable_pop_stops_scroll.get() >= 1:
-            stop_scroll()
-    elif (
-        not eye_zoom_mouse.zoom_mouse.enabled
-    ):
-        if setting_mouse_enable_pop_click.get() >= 1:
-            # ctrl.mouse_click(button=0, hold=16000)
-            pass
+    print("--jp-- on_pop", active)
+    # if gaze_job or scroll_job:
+    #     if setting_mouse_enable_pop_stops_scroll.get() >= 1:
+    #         stop_scroll()
+    # elif (
+    #     not eye_zoom_mouse.zoom_mouse.enabled
+    #     and eye_mouse.mouse.attached_tracker is not None
+    # ):
+    #     if setting_mouse_enable_pop_click.get() >= 1:
+    #         ctrl.mouse_click(button=0, hold=16000)
 
 
 noise.register("pop", on_pop)

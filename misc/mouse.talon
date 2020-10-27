@@ -1,7 +1,11 @@
-control mouse: user.mouse_toggle_control_mouse()
-zoom mouse: user.mouse_toggle_zoom_mouse()
+mouse control: user.mouse_toggle_control_mouse()
+mouse zoom: user.mouse_toggle_zoom_mouse()
+mouse sleep: user.mouse_sleep()
+mouse wake: user.mouse_wake()
+mouse yes: user.mouse_show_cursor()
+mouse no: user.mouse_hide_cursor()
 camera overlay: user.mouse_toggle_camera_overlay()
-run calibration: user.mouse_calibrate()	
+mouse calibrate: user.mouse_calibrate()
 touch: 
 	mouse_click(0)
 	# close the mouse grid if open
@@ -95,8 +99,8 @@ wheel tiny right: mouse_scroll(0, 20)
 wheel tiny right here:
     user.mouse_move_center_active_window()
     mouse_scroll(0, 20)
-curse yes: user.mouse_show_cursor()
-curse no: user.mouse_hide_cursor()
 drag: user.mouse_drag()
 
 copy mouse position: user.copy_mouse_position()
+
+key(f13): user.mouse_zoom_or_click()
