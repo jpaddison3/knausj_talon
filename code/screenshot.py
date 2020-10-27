@@ -68,6 +68,7 @@ class Actions:
             if active_platform == "windows":
                 actions.key("super-shift-s")
             elif active_platform == "mac":
+                # saves to clipboard
                 actions.key("ctrl-shift-cmd-4")
             # linux is handled by the command by default
             # elif active_platform == "linux":

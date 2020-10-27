@@ -59,7 +59,10 @@ bar explore: user.vscode("workbench.view.explorer")
 bar extensions: user.vscode("workbench.view.extensions")
 bar outline: user.vscode("outline.focus")
 bar run: user.vscode("workbench.view.debug")
-bar search: user.vscode("workbench.view.search")
+bar search [<user.text>]:
+  user.vscode("workbench.view.search")
+  sleep(50ms)
+  insert(text or "")
 bar source: user.vscode("workbench.view.scm")
 bar switch: user.vscode("workbench.action.toggleSidebarVisibility")
 
