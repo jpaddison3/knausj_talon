@@ -52,6 +52,10 @@ midclick:
 	mouse_click()
 	# close the mouse grid
 	user.grid_close()
+drag: 
+	user.mouse_drag()
+	# close the mouse grid
+	user.grid_close()
 wheel down: user.mouse_scroll_down()
 wheel down here:
     user.mouse_move_center_active_window()
@@ -99,7 +103,6 @@ wheel tiny right: mouse_scroll(0, 20)
 wheel tiny right here:
     user.mouse_move_center_active_window()
     mouse_scroll(0, 20)
-drag: user.mouse_drag()
 
 copy mouse position: user.copy_mouse_position()
 
