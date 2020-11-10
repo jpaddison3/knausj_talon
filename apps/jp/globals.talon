@@ -16,6 +16,8 @@ untab: key("shift-tab")
 twidle: key("~")
 scape: key("escape")
 # quit: key("escape")
+forgery: "jjjj"
+submit: key("cmd-enter")
 
 # These rely on BetterTouchTool
 clipboard: key("cmd-alt-v")

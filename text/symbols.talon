@@ -2,7 +2,7 @@ question [mark]: "?"
 (downscore | underscore): "_"
 double dash: "--"
 (bracket | brack | left bracket): "{"
-(rbrack | are bracket | right bracket): "}"
+(rbrack | are bracket | right bracket | racket): "}"
 triple quote: "'''"
 (dot dot | dotdot): ".."
 #ellipses: "…"
@@ -58,4 +58,3 @@ percent this:
 quote this:
     text = edit.selected_text()
     user.paste('"{text}"')
-
