@@ -1,23 +1,22 @@
+"""
+Asana has keyboard shortcuts that rely on holding tab and pressing a key. Rather
+than making tab into a modifier key, we can just make it really easy to make
+asana shortcuts.
+"""
 from talon import Module, Context, actions
+
 ctx = Context()
 mod = Module()
-
-# mod.apps.chrome = "app.name: Google Chrome"
-# mod.apps.chrome = "app.name: chrome.exe"
-
-# ctx.matches = r"""
-# app: chrome
-# """
 
 @mod.action_class
 class asana_actions:
     def asana_shortcut(key: str):
-        """Holds tab presses the given key"""
+        """Holds tab and presses the given key"""
 
 
 @ctx.action_class("user")
 class user_actions:
     def asana_shortcut(key: str):
         actions.key("tab:down")
-        actions.key(f"{key}")
+        actions.key(key)
         actions.key("tab:up")
