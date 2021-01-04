@@ -18,6 +18,7 @@ scape: key("escape")
 # quit: key("escape")
 forgery: "jjjj"
 submit: key("cmd-enter")
+m dash: "—"
 
 # These rely on BetterTouchTool
 clipboard: key("cmd-alt-v")
@@ -26,3 +27,8 @@ screen lock:
     user.mouse_sleep()
     speech.disable()
     key("cmd-ctrl-alt-l")
+sauna save:
+    edit.select_all()
+    edit.cut()
+    key("cmd-ctrl-a")
+    key("escape")
