@@ -120,11 +120,6 @@ ctx.lists["self.modifier_key"] = {
 }
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
-<<<<<<< HEAD
-ctx.lists["self.symbol_key"] = {
-    "tick": "`",
-    "`": "`",
-=======
 
 # `punctuation_words` is for words you want available BOTH in dictation and as
 # key names in command mode. `symbol_key_words` is for key names that should be
@@ -134,7 +129,7 @@ punctuation_words = {
     # Dragon. Possibly it has been fixed by later improvements to talon? -rntz
     "`": "`", ",": ",", # <== these things
     "back tick": "`",
->>>>>>> master
+    "tick": "`",
     "comma": ",",
     "period": ".",
     "semicolon": ";",
