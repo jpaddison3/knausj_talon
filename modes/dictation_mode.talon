@@ -1,4 +1,5 @@
 mode: dictation
+mode: user.german
 -
 ^press <user.keys>$: key("{keys}")
 
@@ -9,7 +10,7 @@ new paragraph: "\n\n"
 cap <user.word>:
     result = user.formatted_text(word, "CAPITALIZE_FIRST_WORD")
     auto_insert(result)
-    
+
 # Navigation
 go up <number_small> (line|lines):
     edit.up()
