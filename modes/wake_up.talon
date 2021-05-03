@@ -14,5 +14,6 @@ mode: all
     speech.disable()
     user.engine_sleep()
 ^talon sleep$: speech.disable()
+^kralle schlafen$: speech.disable()
 ^talon wake$: speech.enable()
-
+^kralle aufwachen$: speech.enable()
