@@ -37,3 +37,5 @@ resume:
   insert("fg")
   key(enter)
 
+push drum:
+  insert("pushd")

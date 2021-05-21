@@ -19,10 +19,17 @@ scape: key("escape")
 forgery: "jjjj"
 submit: key("cmd-enter")
 m dash: "—"
+find that:
+    edit.copy()
+    key("cmd-f")
+    edit.paste()
 
 # These rely on BetterTouchTool
 clipboard: key("cmd-alt-v")
 window full: key("cmd-ctrl-m")
+window left: key("cmd-ctrl-h")
+window right: key("cmd-ctrl-l")
+window move: key("cmd-ctrl-i")
 screen lock:
     user.mouse_sleep()
     speech.disable()
@@ -32,3 +39,6 @@ sauna save:
     edit.cut()
     key("cmd-ctrl-a")
     key("escape")
+
+# Moom
+layout <user.number_key>: key("ctrl-alt-{number_key}")

@@ -133,6 +133,7 @@ punctuation_words = {
     "comma": ",",
     "period": ".",
     "semicolon": ";",
+    "semi": ";",
     "colon": ":",
     "forward slash": "/",
     "question mark": "?",

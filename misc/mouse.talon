@@ -106,4 +106,5 @@ wheel tiny right here:
 
 copy mouse position: user.copy_mouse_position()
 
+# Karabiner
 key(f13): user.mouse_zoom_or_click()

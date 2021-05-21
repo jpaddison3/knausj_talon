@@ -1,11 +1,14 @@
-app: datagrip
+tag: terminal
 
 -
 select: "SELECT "
 star: "*"
 from: "FROM "
 select star from: "SELECT * FROM "
-where: "WHERE "
+update: "UPDATE "
+delete from: "DELETE FROM "
+set: " SET "
+state where: " WHERE "
 order by: "ORDER BY "
 descending: " DESC"
 ascending: " ASC"
@@ -18,3 +21,6 @@ inner join:
     key(left)
     key(left)
     key(left)
+begin: "BEGIN; "
+rollback: "ROLLBACK;"
+commit: "COMMIT;"

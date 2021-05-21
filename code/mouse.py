@@ -266,7 +266,8 @@ def show_cursor_helper(show):
 
 
 def on_hiss(active):
-    print("--jp-- on_hiss")
+    pass
+    # print("--jp-- on_hiss")
     # if gaze_job or scroll_job:
     #     stop_scroll()
     # elif (

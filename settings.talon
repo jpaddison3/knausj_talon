@@ -22,5 +22,6 @@ settings():
     user.mouse_wheel_down_amount = 120
     # --jp--
     speech.record_all = 1
+    speech.timeout = 0.150
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
