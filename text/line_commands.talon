@@ -26,16 +26,13 @@ copy [line] <number>:
 copy <number> until <number>: 
     user.select_range(number_1, number_2)
     edit.copy()
-# cut [line] <number>:
-#     user.select_range(number, number)
-#     edit.cut()
-# cut [line] <number> until <number>: 
-#     user.select_range(number_1, number_2)
-#     edit.cut()
-paste <number> until <number>:
-  user.select_range(number_1, number_2)
-  edit.paste()
-replace <number> until <number>: 
+cut [line] <number>: 
+    user.select_range(number, number)
+    edit.cut()
+cut [line] <number> until <number>: 
+    user.select_range(number_1, number_2)
+    edit.cut()
+(paste | replace) <number> until <number>:
     user.select_range(number_1, number_2)
     edit.paste()
 (select | cell | sell) [line] <number>: user.select_range(number, number)

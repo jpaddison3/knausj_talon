@@ -1,7 +1,6 @@
 #
 -
 note new: key("cmd-ctrl-n")
-junk: key("backspace")
 clobber: key("alt-backspace")
 destroy: key("cmd-backspace")
 fly left: key("alt-left")

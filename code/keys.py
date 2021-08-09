@@ -74,6 +74,12 @@ def function_key(m) -> str:
     return m.function_key
 
 
+@mod.capture(rule="( <self.letter> | <self.number_key> | <self.symbol_key> )")
+def any_alphanumeric_key(m) -> str:
+    "any alphanumeric key"
+    return str(m)
+
+
 @mod.capture(
     rule="( <self.letter> | <self.number_key> | <self.symbol_key> "
     "| <self.arrow_key> | <self.function_key> | <self.special_key> )"
@@ -106,18 +112,20 @@ def letters(m) -> str:
 
 
 ctx = Context()
-ctx.lists["self.modifier_key"] = {
+modifier_keys = {
     # If you find 'alt' is often misrecognized, try using 'alter'.
     "alt": "alt",  #'alter': 'alt',
-    "command": "cmd",
     "mando": "cmd",
     "control": "ctrl",  #'troll':   'ctrl',
-    "option": "alt",
     "shift": "shift",  #'sky':     'shift',
     "control": "ctrl",  #'troll':   'ctrl',
     "troll": "ctrl",  #'troll':   'ctrl',
     "super": "super",
 }
+if app.platform  == "mac":
+    modifier_keys["command"] = "cmd"
+    modifier_keys["option"] = "alt"
+ctx.lists["self.modifier_key"] = modifier_keys
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
 
@@ -127,11 +135,14 @@ ctx.lists["self.letter"] = alphabet
 punctuation_words = {
     # TODO: I'm not sure why we need these, I think it has something to do with
     # Dragon. Possibly it has been fixed by later improvements to talon? -rntz
-    "`": "`", ",": ",", # <== these things
+    "`": "`",
+    ",": ",",  # <== these things
     "back tick": "`",
     "tick": "`",
+    "grave": "`",
     "comma": ",",
     "period": ".",
+    "full stop": ".",
     "semicolon": ";",
     "semi": ";",
     "colon": ":",
@@ -150,7 +161,9 @@ punctuation_words = {
 }
 symbol_key_words = {
     "dot": ".",
+    "point": ".",
     "quote": "'",
+    "apostrophe": "'",
     "L square": "[",
     "left square": "[",
     "square": "[",
@@ -223,16 +236,19 @@ simple_keys = [
 alternate_keys = {
     # "delete": "backspace",
     # "forward delete": "delete",
-    #'junk': 'backspace',
+    'junk': 'backspace',
     "ending": "end",
+    "page up": "pageup",
+    "page down": "pagedown",
 }
 # mac apparently doesn't have the menu key.
 if app.platform in ("windows", "linux"):
     alternate_keys["menu key"] = "menu"
+    alternate_keys["print screen"] = "printscr"
 
-keys = {k: k for k in simple_keys}
-keys.update(alternate_keys)
-ctx.lists["self.special_key"] = keys
+special_keys = {k: k for k in simple_keys}
+special_keys.update(alternate_keys)
+ctx.lists["self.special_key"] = special_keys
 ctx.lists["self.function_key"] = {
     f"F {default_f_digits[i]}": f"f{i + 1}" for i in range(12)
 }
