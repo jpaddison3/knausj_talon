@@ -61,7 +61,7 @@ bar outline: user.vscode("outline.focus")
 bar run: user.vscode("workbench.view.debug")
 bar search:
    # [<user.text>]
-  user.vscode("workbench.view.search")
+  user.vscode("workbench.action.findInFiles")
   sleep(50ms)
   # insert(text or "")
 bar source: user.vscode("workbench.view.scm")

@@ -1,7 +1,6 @@
 #
 -
 note new: key("cmd-ctrl-n")
-kill: key("backspace")
 junk: key("backspace")
 clobber: key("alt-backspace")
 destroy: key("cmd-backspace")
@@ -23,6 +22,9 @@ find that:
     edit.copy()
     key("cmd-f")
     edit.paste()
+^dash red$: skip()
+new line:
+    key("shift-enter")
 
 # These rely on BetterTouchTool
 clipboard: key("cmd-alt-v")
