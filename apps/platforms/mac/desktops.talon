@@ -5,6 +5,7 @@ os: mac
 # I don't think this was the original intended use of this file
 desk left: key("ctrl-left")
 desk right: key("ctrl-right")
+desk next: key("ctrl-right")
 desk <number>: user.desktop(number)
 window move desk <number>: user.window_move_desktop(number)
 window move desk left: user.window_move_desktop_left()

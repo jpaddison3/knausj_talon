@@ -139,7 +139,7 @@ punctuation_words = {
     ",": ",",  # <== these things
     "back tick": "`",
     "tick": "`",
-    "grave": "`",
+    # "grave": "`",
     "comma": ",",
     "period": ".",
     "full stop": ".",
