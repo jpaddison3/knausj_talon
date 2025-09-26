@@ -1,0 +1,1032 @@
+diff --git a/.gitignore b/.gitignore
+index 28ce5928..c93a0c3e 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -3,3 +3,6 @@ __pycache__
+ *.sw?
+ # Locally generated
+ /settings
++# JP
++**.DS_Store
++.vscode
+diff --git a/apps/chrome/chrome.mac.talon b/apps/chrome/chrome.mac.talon
+new file mode 100644
+index 00000000..3a37afb5
+--- /dev/null
++++ b/apps/chrome/chrome.mac.talon
+@@ -0,0 +1,75 @@
++os: mac
++app: chrome
++-
++tag(): browser
++tag(): user.tabs
++#action(browser.address):
++
++action(browser.bookmark):
++	key(cmd-d)
++
++action(browser.bookmark_tabs):
++	key(cmd-shift-d)
++	
++action(browser.bookmarks):
++	key(cmd-alt-b)
++  
++action(browser.bookmarks_bar):
++	key(cmd-shift-b)
++
++action(browser.focus_address): 
++	key(cmd-l)
++	
++#action(browser.focus_page):
++
++action(browser.focus_search):
++	browser.focus_address()
++
++action(browser.go):
++	browser.focus_address()
++	insert(url)
++	key(enter)
++
++action(browser.go_blank):
++	key(cmd-n)
++	
++action(browser.go_back):
++	key(cmd-[)
++
++action(browser.go_forward):
++	key(cmd-])
++	
++action(browser.go_home):
++	key(cmd-shift-h)
++
++action(browser.open_private_window):
++	key(cmd-shift-n)
++
++action(browser.reload):
++	key(cmd-r)
++
++action(browser.reload_hard):
++	key(cmd-shift-r)
++
++#action(browser.reload_hardest):
++	
++action(browser.show_clear_cache):
++	key(cmd-shift-delete)
++  
++action(browser.show_downloads):
++	key(cmd-shift-j)
++
++#action(browser.show_extensions)
++
++action(browser.show_history):
++	key(cmd-y)
++	
++action(browser.submit_form):
++	key(enter)
++
++#action(browser.title)
++
++action(browser.toggle_dev_tools):
++	key(cmd-alt-i)
++
++channel: key(cmd-k)
+diff --git a/apps/generic_browser.talon b/apps/generic_browser.talon
+index f961fa9a..26a53926 100644
+--- a/apps/generic_browser.talon
++++ b/apps/generic_browser.talon
+@@ -27,6 +27,9 @@ show cache: browser.show_clear_cache()
+ 
+ dev tools: browser.toggle_dev_tools()
+ 
++# -- jp --
++channel: key(cmd-k)
++
+ #todo - port to apps
+ # navigating current page
+ # help: key(?)
+diff --git a/apps/generic_terminal/generic_terminal.talon b/apps/generic_terminal/generic_terminal.talon
+index c544ddf5..7df470d3 100644
+--- a/apps/generic_terminal/generic_terminal.talon
++++ b/apps/generic_terminal/generic_terminal.talon
+@@ -8,4 +8,7 @@ katie [<user.text>]: user.terminal_change_directory(text or "")
+ katie root: user.terminal_change_directory_root()
+ clear screen: user.terminal_clear_screen()
+ run last: user.terminal_run_last()
+-kill all: user.terminal_kill_all()
+\ No newline at end of file
++kill all: user.terminal_kill_all()
++
++push drum:
++    insert("pushd")
+diff --git a/apps/jp/evernote.py b/apps/jp/evernote.py
+new file mode 100644
+index 00000000..424bfb22
+--- /dev/null
++++ b/apps/jp/evernote.py
+@@ -0,0 +1,5 @@
++from talon import Module
++
++mod = Module()
++
++mod.apps.evernote = "app.name: Evernote"
+diff --git a/apps/jp/evernote.talon b/apps/jp/evernote.talon
+new file mode 100644
+index 00000000..d9c04111
+--- /dev/null
++++ b/apps/jp/evernote.talon
+@@ -0,0 +1,5 @@
++app: evernote
++-
++note move: key("cmd-alt-m")
++note remind: key("cmd-alt-r")
++note search: key("cmd-ctrl-e")
+diff --git a/apps/jp/globals.talon b/apps/jp/globals.talon
+new file mode 100644
+index 00000000..ccafbf2f
+--- /dev/null
++++ b/apps/jp/globals.talon
+@@ -0,0 +1,45 @@
++#
++-
++note new: key("cmd-ctrl-n")
++clobber: key("alt-backspace")
++destroy: key("cmd-backspace")
++fly left: key("alt-left")
++fly right: key("alt-right")
++bobblehead: key("cmd-alt-f")
++face: key("space")
++spacer: key("space")
++say sir: key("space")
++moji: key("cmd-ctrl-space")
++untab: key("shift-tab")
++twidle: key("~")
++scape: key("escape")
++# quit: key("escape")
++forgery: "jjjj"
++submit: key("cmd-enter")
++m dash: "—"
++find that:
++    edit.copy()
++    key("cmd-f")
++    edit.paste()
++^dash red$: skip()
++new line:
++    key("shift-enter")
++
++# These rely on BetterTouchTool
++clipboard: key("cmd-alt-v")
++window full: key("cmd-ctrl-m")
++window left: key("cmd-ctrl-h")
++window right: key("cmd-ctrl-l")
++window move: key("cmd-ctrl-i")
++screen lock:
++    user.mouse_sleep()
++    speech.disable()
++    key("cmd-ctrl-alt-l")
++sauna save:
++    edit.select_all()
++    edit.cut()
++    key("cmd-ctrl-a")
++    key("escape")
++
++# Moom
++layout <user.number_key>: key("ctrl-alt-{number_key}")
+diff --git a/apps/mac/terminal/terminal.talon b/apps/mac/terminal/terminal.talon
+new file mode 100644
+index 00000000..7a637ce9
+--- /dev/null
++++ b/apps/mac/terminal/terminal.talon
+@@ -0,0 +1,41 @@
++app: apple_terminal
++-
++#comment or remove tags for command sets you don't want
++tag(): user.file_manager
++tag(): user.git
++tag(): user.kubectl
++tag(): user.tabs
++tag(): terminal
++
++action(user.file_manager_open_parent):
++    insert("cd ..")
++    key(enter)
++action(app.tab_open):
++  key(cmd-t)
++action(app.tab_close):
++  key(cmd-w)
++action(app.tab_next):
++  key(ctrl-tab)
++action(app.tab_previous):
++  key(ctrl-shift-tab)
++action(app.window_open):
++  key(cmd-n)
++kill all:
++  key(ctrl-c)
++rerun search:
++  key(ctrl-r)
++run last:
++  key(up)
++  key(enter)
++action(edit.page_down):
++  key(command-pagedown)
++action(edit.page_up):
++  key(command-pageup)
++suspend:
++  key(ctrl-z)
++resume:
++  insert("fg")
++  key(enter)
++
++push drum:
++  insert("pushd")
+diff --git a/apps/platforms/linux/signal.talon b/apps/platforms/linux/signal.talon
+index e0d74bc6..e5ed2e7a 100644
+--- a/apps/platforms/linux/signal.talon
++++ b/apps/platforms/linux/signal.talon
+@@ -28,10 +28,10 @@ close chat: key("ctrl-shift-c")
+ # Messages
+ send it: key("enter")
+ message details: key("ctrl-d")
+-reply [message]: key("ctrl-shift-r")
+-react [message]: key("ctrl-shift-e")
++reply it: key("ctrl-shift-r")
++react it: key("ctrl-shift-e")
+ save attachment: key("ctrl-s")
+-delete [message]: key("ctrl-shift-d")
++delete it: key("ctrl-shift-d")
+ 
+ # Composer
+ send message: key("ctrl-enter")
+@@ -39,4 +39,3 @@ expand chat: key("ctrl-shift-x")
+ attach [file]: key("ctrl-u")
+ remove [link] preview: key("ctrl-p")
+ remove [link] attachment: key("ctrl-shift-p")
+-
+diff --git a/apps/platforms/mac/desktops.talon b/apps/platforms/mac/desktops.talon
+index 340393c6..135578c0 100644
+--- a/apps/platforms/mac/desktops.talon
++++ b/apps/platforms/mac/desktops.talon
+@@ -2,6 +2,10 @@
+ #   restriction.
+ os: mac
+ -
++# I don't think this was the original intended use of this file
++desk left: key("ctrl-left")
++desk right: key("ctrl-right")
++desk next: key("ctrl-right")
+ desk <number>: user.desktop(number)
+ window move desk <number>: user.window_move_desktop(number)
+ window move desk left: user.window_move_desktop_left()
+diff --git a/apps/slack/slack_mac.talon b/apps/slack/slack_mac.talon
+index 0fac87d7..fb569544 100644
+--- a/apps/slack/slack_mac.talon
++++ b/apps/slack/slack_mac.talon
+@@ -51,3 +51,6 @@ bold: key(cmd-b)
+ emote <user.text>: "{text}"
+ toggle left sidebar: key(cmd-shift-d)
+ toggle right sidebar: key(cmd-.)
++go back: key(cmd-[)
++go forward: key(cmd-])
++link insert: key(cmd-shift-u)
+diff --git a/apps/vscode/vscode.talon b/apps/vscode/vscode.talon
+index cedc14a3..fe8a0e60 100644
+--- a/apps/vscode/vscode.talon
++++ b/apps/vscode/vscode.talon
+@@ -11,16 +11,20 @@ window reload: user.vscode("workbench.action.reloadWindow")
+ window close: user.vscode("workbench.action.closeWindow")
+ #multiple_cursor.py support end
+ 
+-please [<user.text>]:
+-    user.vscode("workbench.action.showCommands")
+-    insert(user.text or "")
++# please [<user.text>]:
++#     user.vscode("workbench.action.showCommands")
++#     insert(user.text or "")
+     
+ # Sidebar
+ bar explore: user.vscode("workbench.view.explorer")
+ bar extensions: user.vscode("workbench.view.extensions")
+ bar outline: user.vscode("outline.focus")
+ bar run: user.vscode("workbench.view.debug")
+-bar search: user.vscode("workbench.view.search")
++bar search:
++   # [<user.text>]
++  user.vscode("workbench.action.findInFiles")
++  sleep(50ms)
++  # insert(text or "")
+ bar source: user.vscode("workbench.view.scm")
+ bar switch: user.vscode("workbench.action.toggleSidebarVisibility")
+ 
+@@ -150,6 +154,12 @@ pull request: user.vscode("pr.create")
+ change next: key(alt-f5)
+ change last: key(shift-alt-f5)
+ 
++# Merge conflict resolution
++merge next: user.vscode("merge-conflict.next")
++merge incoming: user.vscode("merge-conflict.accept.incoming")
++merge current: user.vscode("merge-conflict.accept.current")
++merge both: user.vscode("merge-conflict.accept.both")
++
+ #Debugging
+ break point: user.vscode("editor.debug.action.toggleBreakpoint")
+ step over: user.vscode("workbench.action.debug.stepOver")
+diff --git a/code/keys.py b/code/keys.py
+index 7979212f..4c1b1eef 100644
+--- a/code/keys.py
++++ b/code/keys.py
+@@ -3,6 +3,7 @@ from typing import Set
+ from talon import Module, Context, actions, app
+ import sys
+ 
++# fox
+ default_alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split(
+     " "
+ )
+@@ -114,8 +115,11 @@ ctx = Context()
+ modifier_keys = {
+     # If you find 'alt' is often misrecognized, try using 'alter'.
+     "alt": "alt",  #'alter': 'alt',
++    "mando": "cmd",
+     "control": "ctrl",  #'troll':   'ctrl',
+     "shift": "shift",  #'sky':     'shift',
++    "control": "ctrl",  #'troll':   'ctrl',
++    "troll": "ctrl",  #'troll':   'ctrl',
+     "super": "super",
+ }
+ if app.platform  == "mac":
+@@ -134,11 +138,13 @@ punctuation_words = {
+     "`": "`",
+     ",": ",",  # <== these things
+     "back tick": "`",
+-    "grave": "`",
++    "tick": "`",
++    # "grave": "`",
+     "comma": ",",
+     "period": ".",
+     "full stop": ".",
+     "semicolon": ";",
++    "semi": ";",
+     "colon": ":",
+     "forward slash": "/",
+     "question mark": "?",
+@@ -179,10 +185,11 @@ symbol_key_words = {
+     "left paren": "(",
+     "R paren": ")",
+     "right paren": ")",
+-    "brace": "{",
+-    "left brace": "{",
+-    "R brace": "}",
+-    "right brace": "}",
++    "right pra": ")",
++    # "brace": "{",
++    # "left brace": "{",
++    # "R brace": "}",
++    # "right brace": "}",
+     "angle": "<",
+     "left angle": "<",
+     "less than": "<",
+@@ -214,7 +221,6 @@ ctx.lists["self.arrow_key"] = {
+ }
+ 
+ simple_keys = [
+-    "end",
+     "enter",
+     "escape",
+     "home",
+@@ -223,12 +229,15 @@ simple_keys = [
+     "pageup",
+     "space",
+     "tab",
++    "backspace",
++    "delete",
+ ]
+ 
+ alternate_keys = {
+-    "delete": "backspace",
+-    "forward delete": "delete",
+-    #'junk': 'backspace',
++    # "delete": "backspace",
++    # "forward delete": "delete",
++    'junk': 'backspace',
++    "ending": "end",
+     "page up": "pageup",
+     "page down": "pagedown",
+ }
+@@ -250,4 +259,3 @@ class Actions:
+     def get_alphabet() -> dict:
+         """Provides the alphabet dictionary"""
+         return alphabet
+-
+diff --git a/code/mouse.py b/code/mouse.py
+index 345d84e5..2853ed73 100644
+--- a/code/mouse.py
++++ b/code/mouse.py
+@@ -114,8 +114,8 @@ class Actions:
+ 
+     def mouse_wake():
+         """Enable control mouse, zoom mouse, and disables cursor"""
++        toggle_control(True)
+         eye_zoom_mouse.toggle_zoom_mouse(True)
+-        # eye_mouse.control_mouse.enable()
+         if setting_mouse_wake_hides_cursor.get() >= 1:
+             show_cursor_helper(False)
+ 
+@@ -125,6 +125,7 @@ class Actions:
+ 
+     def mouse_toggle_control_mouse():
+         """Toggles control mouse"""
++        print(" --jp-- control_mouse setting to:", not config.control_mouse)
+         toggle_control(not config.control_mouse)
+ 
+     def mouse_toggle_camera_overlay():
+@@ -133,6 +134,7 @@ class Actions:
+ 
+     def mouse_toggle_zoom_mouse():
+         """Toggles zoom mouse"""
++        print(" --jp-- toggle_zoom_mouse setting to:", not eye_zoom_mouse.zoom_mouse.enabled)
+         eye_zoom_mouse.toggle_zoom_mouse(not eye_zoom_mouse.zoom_mouse.enabled)
+ 
+     def mouse_cancel_zoom_mouse():
+@@ -165,8 +167,8 @@ class Actions:
+ 
+     def mouse_sleep():
+         """Disables control mouse, zoom mouse, and re-enables cursor"""
+-        eye_zoom_mouse.toggle_zoom_mouse(False)
+         toggle_control(False)
++        eye_zoom_mouse.toggle_zoom_mouse(False)
+         show_cursor_helper(True)
+         stop_scroll()
+ 
+@@ -235,6 +237,22 @@ class Actions:
+         rect = ui.active_window().rect
+         ctrl.mouse_move(rect.left + (rect.width / 2), rect.top + (rect.height / 2))
+ 
++    def mouse_zoom_or_click():
++        """Trigger zoom mouse"""
++        print(" --jp-- zoom mouse", eye_zoom_mouse.zoom_mouse.enabled)
++        full_conditional = (
++            eye_zoom_mouse.zoom_mouse.enabled
++            and eye_mouse.mouse.attached_tracker is not None
++        )
++        print("  --jp-- for_conditional", full_conditional)
++        if (
++            eye_zoom_mouse.zoom_mouse.enabled
++            and eye_mouse.mouse.attached_tracker is not None
++        ):
++            eye_zoom_mouse.zoom_mouse.on_pop(eye_zoom_mouse.zoom_mouse.state)
++        else:
++            ctrl.mouse_click(button=0, hold=16000)
++
+ 
+ def show_cursor_helper(show):
+     """Show/hide the cursor"""
+@@ -271,15 +289,31 @@ def show_cursor_helper(show):
+         ctrl.cursor_visible(show)
+ 
+ 
++def on_hiss(active):
++    pass
++    # print("--jp-- on_hiss")
++    # if gaze_job or scroll_job:
++    #     stop_scroll()
++    # elif (
++    #     not eye_zoom_mouse.zoom_mouse.enabled
++    # ):
++    #     # ctrl.mouse_click(button=0, hold=16000)
++    #     pass
++
++
++noise.register("hiss", on_hiss)
++
++
+ def on_pop(active):
+-    if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (gaze_job or scroll_job):
+-        stop_scroll()
+-    elif (
+-        not eye_zoom_mouse.zoom_mouse.enabled
+-        and eye_mouse.mouse.attached_tracker is not None
+-    ):
+-        if setting_mouse_enable_pop_click.get() >= 1:
+-            ctrl.mouse_click(button=0, hold=16000)
++    print("--jp-- on_pop", active)
++    # if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (gaze_job or scroll_job):
++    #     stop_scroll()
++    # elif (
++    #     not eye_zoom_mouse.zoom_mouse.enabled
++    #     and eye_mouse.mouse.attached_tracker is not None
++    # ):
++    #     if setting_mouse_enable_pop_click.get() >= 1:
++    #         ctrl.mouse_click(button=0, hold=16000)
+ 
+ 
+ noise.register("pop", on_pop)
+diff --git a/code/screenshot.py b/code/screenshot.py
+index 783b2b7a..e1ec9062 100644
+--- a/code/screenshot.py
++++ b/code/screenshot.py
+@@ -38,6 +38,7 @@ class Actions:
+         if app.platform == "windows":
+             actions.key("super-shift-s")
+         elif app.platform == "mac":
++            # saves to clipboard
+             actions.key("ctrl-shift-cmd-4")
+         elif app.platform == "linux":
+             actions.key("shift-printscr")
+diff --git a/eye_tracking_settings.py b/eye_tracking_settings.py
+index d24369a7..962922c2 100644
+--- a/eye_tracking_settings.py
++++ b/eye_tracking_settings.py
+@@ -1,11 +1,25 @@
++# TODO; Test with eye tracker
++# <<<<<<< HEAD
+ # from talon import app
+ # from talon.track.geom import Point2d
+ # from talon_plugins import speech, eye_mouse, eye_zoom_mouse
+ 
+-# if app.platform == "mac":
+-#     eye_zoom_mouse.config.screen_area = Point2d(100, 75)
+-#     eye_zoom_mouse.config.img_scale = 6
+-# elif app.platform == "windows":
++# if app.platform == 'mac':
++#     eye_zoom_mouse.config.screen_area = Point2d(350, 150)
++#     eye_zoom_mouse.config.img_scale = 5
++# elif app.platformh == 'win':
+ #     eye_zoom_mouse.config.screen_area = Point2d(200, 150)
+ #     eye_zoom_mouse.config.img_scale = 4.5
++# =======
++# # from talon import app
++# # from talon.track.geom import Point2d
++# # from talon_plugins import speech, eye_mouse, eye_zoom_mouse
+ 
++# # if app.platform == "mac":
++# #     eye_zoom_mouse.config.screen_area = Point2d(100, 75)
++# #     eye_zoom_mouse.config.img_scale = 6
++# # elif app.platform == "windows":
++# #     eye_zoom_mouse.config.screen_area = Point2d(200, 150)
++# #     eye_zoom_mouse.config.img_scale = 4.5
++
++# >>>>>>> master
+diff --git a/lang/javascript/javascript.talon b/lang/javascript/javascript.talon
+index d3cb649b..49b63659 100644
+--- a/lang/javascript/javascript.talon
++++ b/lang/javascript/javascript.talon
+@@ -44,3 +44,5 @@ state spread: "..."
+ ^funky <user.text>$: user.code_default_function(text)
+ ^pro funky <user.text>$: user.code_protected_function(text)
+ ^pub funky <user.text>$: user.code_public_function(text)
++
++state log: "console.log('"
+diff --git a/lang/sql.talon b/lang/sql.talon
+index 7ef80bdb..896f0eda 100644
+--- a/lang/sql.talon
++++ b/lang/sql.talon
+@@ -1,11 +1,14 @@
+-app: datagrip
++tag: terminal
+ 
+ -
+ select: "SELECT "
+ star: "*"
+ from: "FROM "
+ select star from: "SELECT * FROM "
+-where: "WHERE "
++update: "UPDATE "
++delete from: "DELETE FROM "
++set: " SET "
++state where: " WHERE "
+ order by: "ORDER BY "
+ descending: " DESC"
+ ascending: " ASC"
+@@ -18,3 +21,6 @@ inner join:
+     key(left)
+     key(left)
+     key(left)
++begin: "BEGIN; "
++rollback: "ROLLBACK;"
++commit: "COMMIT;"
+diff --git a/lang/typescript/typescript.talon b/lang/typescript/typescript.talon
+index 3f879173..80679021 100644
+--- a/lang/typescript/typescript.talon
++++ b/lang/typescript/typescript.talon
+@@ -44,3 +44,5 @@ state spread: "..."
+ ^funky <user.text>$: user.code_default_function(text)
+ ^pro funky <user.text>$: user.code_protected_function(text)
+ ^pub funky <user.text>$: user.code_public_function(text)
++
++state log: "console.log('"
+diff --git a/misc/asana.py b/misc/asana.py
+new file mode 100644
+index 00000000..8f910374
+--- /dev/null
++++ b/misc/asana.py
+@@ -0,0 +1,22 @@
++"""
++Asana has keyboard shortcuts that rely on holding tab and pressing a key. Rather
++than making tab into a modifier key, we can just make it really easy to make
++asana shortcuts.
++"""
++from talon import Module, Context, actions
++
++ctx = Context()
++mod = Module()
++
++@mod.action_class
++class asana_actions:
++    def asana_shortcut(key: str):
++        """Holds tab and presses the given key"""
++
++
++@ctx.action_class("user")
++class user_actions:
++    def asana_shortcut(key: str):
++        actions.key("tab:down")
++        actions.key(key)
++        actions.key("tab:up")
+diff --git a/misc/asana.talon b/misc/asana.talon
+new file mode 100644
+index 00000000..5b2c66c5
+--- /dev/null
++++ b/misc/asana.talon
+@@ -0,0 +1,26 @@
++tag: browser
++-
++# Tasks
++sauna assign: user.asana_shortcut("a")
++sauna date: user.asana_shortcut("d")
++# description
++sauna desk: user.asana_shortcut("r")
++sauna comment: user.asana_shortcut("c")
++sauna tag: user.asana_shortcut("t")
++sauna project: user.asana_shortcut("p")
++# subtask
++sauna sub: user.asana_shortcut("s")
++
++# My Tasks
++sauna mine: user.asana_shortcut("z")
++# today
++sauna day: user.asana_shortcut("y")
++# upcoming
++sauna up: user.asana_shortcut("u")
++sauna later: user.asana_shortcut("l")
++
++# Inbox
++sauna inbox: user.asana_shortcut("i")
++
++# Other
++sauna search: user.asana_shortcut("/")
+diff --git a/misc/git.talon b/misc/git.talon
+index 5b03d0a0..18177f7c 100644
+--- a/misc/git.talon
++++ b/misc/git.talon
+@@ -13,6 +13,7 @@ git branch <user.text>: "git branch {text}"
+ git checkout: "git checkout "
+ git checkout master: "git checkout master\n"
+ git checkout main: "git checkout main\n"
++git checkout new: "git checkout -b "
+ git checkout <user.text>: "git checkout {text}"
+ git cherry pick: "git cherry-pick "
+ git cherry pick continue: "git cherry-pick --continue "
+@@ -22,7 +23,7 @@ git clone: "git clone "
+ # Leave \n out for confirmation since the operation is destructive
+ git clean everything: "git clean -dfx"
+ git commit message <user.text>: "git commit -m '{text}'"
+-git commit: "git commit\n"
++git commit: "git commit -m '"
+ git diff (colour|color) words: "git diff --color-words "
+ git diff: "git diff "
+ git diff cached: "git diff --cached\n"
+@@ -41,7 +42,7 @@ git move: "git mv "
+ git new branch: "git checkout -b "
+ git pull: "git pull\n"
+ git pull origin: "git pull origin "
+-git pull rebase: "git pull --rebase\n"
++git pull rebase: "git pull --rebase "
+ git pull fast forward: "git pull --ff-only\n"
+ git pull <user.text>: "git pull {text} "
+ git push: "git push\n"
+@@ -63,9 +64,9 @@ git restore staged: "git restore --staged "
+ git remote show origin: "git remote show origin\n"
+ git remote add upstream: "git remote add upstream "
+ git show: "git show "
+-git stash pop: "git stash pop\n"
+-git stash: "git stash\n"
+-git stash apply: "git stash apply\n"
++git stash pop: "git stash pop"
++git stash: "git stash "
++git stash apply: "git stash apply"
+ git stash list: "git stash list\n"
+ git stash show: "git stash show"
+ git status: "git status\n"
+diff --git a/misc/jp-misc-terminal.talon b/misc/jp-misc-terminal.talon
+new file mode 100644
+index 00000000..5205c396
+--- /dev/null
++++ b/misc/jp-misc-terminal.talon
+@@ -0,0 +1,3 @@
++tag: terminal
++-
++yarn: "yarn "
+diff --git a/misc/mongo.py b/misc/mongo.py
+new file mode 100644
+index 00000000..ea88c1d8
+--- /dev/null
++++ b/misc/mongo.py
+@@ -0,0 +1,15 @@
++from talon import Context, Module
++
++ctx = Context()
++mod = Module()
++
++operators = ["insert", "find", "update", "delete"]
++
++ctx.lists["self.mongo_operator"] = {op: op for op in operators}
++
++mod.list("mongo_operator", desc="Mongo CRUD operations")
++
++@mod.capture(rule="{self.mongo_operator}")
++def mongo_operator(m) -> str:
++    "Returns a string"
++    return m.mongo_operator
+diff --git a/misc/mongo.talon b/misc/mongo.talon
+new file mode 100644
+index 00000000..52adabb7
+--- /dev/null
++++ b/misc/mongo.talon
+@@ -0,0 +1,4 @@
++tag: terminal
++-
++# HACK: Plurals are hard so we only ask for the singular
++mongo <user.text> <user.mongo_operator>: "db.{text}s.{mongo_operator}({"
+diff --git a/misc/mouse.talon b/misc/mouse.talon
+index 932bdae4..760d85a4 100644
+--- a/misc/mouse.talon
++++ b/misc/mouse.talon
+@@ -1,13 +1,17 @@
+-control mouse: user.mouse_toggle_control_mouse()
+-zoom mouse: user.mouse_toggle_zoom_mouse()
++mouse control: user.mouse_toggle_control_mouse()
++mouse zoom: user.mouse_toggle_zoom_mouse()
++mouse sleep: user.mouse_sleep()
++mouse wake: user.mouse_wake()
++mouse yes: user.mouse_show_cursor()
++mouse no: user.mouse_hide_cursor()
+ camera overlay: user.mouse_toggle_camera_overlay()
+-run calibration: user.mouse_calibrate()	
++mouse calibrate: user.mouse_calibrate()
+ touch: 
+ 	mouse_click(0)
+ 	# close the mouse grid if open
+ 	user.grid_close()
+ 
+-righty: 
++right click:
+ 	mouse_click(1)
+ 	# close the mouse grid if open
+ 	user.grid_close()
+@@ -30,7 +34,8 @@ midclick:
+ 	key("{modifiers}:up")
+ 	# close the mouse grid
+ 	user.grid_close()
+-<user.modifiers> righty: 
++
++<user.modifiers> right click:
+ 	key("{modifiers}:down")
+ 	mouse_click(1)
+ 	key("{modifiers}:up")
+@@ -98,6 +103,8 @@ wheel tiny right: mouse_scroll(0, 20)
+ wheel tiny right here:
+     user.mouse_move_center_active_window()
+     mouse_scroll(0, 20)
+-curse yes: user.mouse_show_cursor()
+-curse no: user.mouse_hide_cursor()
+-copy mouse position: user.copy_mouse_position()
+\ No newline at end of file
++
++copy mouse position: user.copy_mouse_position()
++
++# Karabiner
++key(f13): user.mouse_zoom_or_click()
+diff --git a/misc/screenshot.talon b/misc/screenshot.talon
+index a8bd4880..701ce032 100644
+--- a/misc/screenshot.talon
++++ b/misc/screenshot.talon
+@@ -5,4 +5,4 @@
+ 
+ ^grab screen clip$:                  user.screenshot_clipboard()
+ ^grab screen <number_small> clip$:   user.screenshot_clipboard(number_small)
+-^grab window clip$:                  user.screenshot_window_clipboard()
+\ No newline at end of file
++^grab window clip$:                  user.screenshot_window_clipboard()
+diff --git a/misc/standard.talon b/misc/standard.talon
+index 78a00dd4..75727e3e 100644
+--- a/misc/standard.talon
++++ b/misc/standard.talon
+@@ -27,4 +27,4 @@ wipe: key(backspace)
+ 	key(left)
+ slap:
+ 	edit.line_end()
+-	key(enter)
+\ No newline at end of file
++	key(enter)
+diff --git a/misc/tmux.talon b/misc/tmux.talon
+new file mode 100644
+index 00000000..077a4029
+--- /dev/null
++++ b/misc/tmux.talon
+@@ -0,0 +1,3 @@
++tag: terminal
++-
++mix: key("ctrl-j")
+diff --git a/modes/modes.talon b/modes/modes.talon
+index c738a3a5..dc4d933a 100644
+--- a/modes/modes.talon
++++ b/modes/modes.talon
+@@ -9,4 +9,4 @@ not mode: sleep
+ ^command mode$:
+     mode.disable("sleep")
+     mode.disable("dictation")
+-    mode.enable("command")
+\ No newline at end of file
++    mode.enable("command")
+diff --git a/modes/sleep_mode.talon b/modes/sleep_mode.talon
+index 656f700f..bcb90890 100644
+--- a/modes/sleep_mode.talon
++++ b/modes/sleep_mode.talon
+@@ -4,4 +4,4 @@ settings():
+     #stop continuous scroll/gaze scroll with a pop
+     user.mouse_enable_pop_stops_scroll = 0
+ 	#enable pop click with 'control mouse' mode
+-	user.mouse_enable_pop_click = 0
+\ No newline at end of file
++	user.mouse_enable_pop_click = 0
+diff --git a/modes/wake_up.talon b/modes/wake_up.talon
+index b12726b1..f99d2376 100644
+--- a/modes/wake_up.talon
++++ b/modes/wake_up.talon
+@@ -15,4 +15,6 @@ mode: all
+     user.engine_sleep()
+ ^talon sleep [<phrase>]$: speech.disable()
+ ^talon wake$: speech.enable()
+-
++^talon light$:
++    speech.enable()
++    user.mouse_wake()
+diff --git a/settings.talon b/settings.talon
+index fd8820fa..89642690 100644
+--- a/settings.talon
++++ b/settings.talon
+@@ -19,13 +19,13 @@ settings():
+     user.mouse_enable_pop_stops_scroll = 1
+ 
+     # Enable pop click with 'control mouse' mode
+-    user.mouse_enable_pop_click = 1
++    user.mouse_enable_pop_click = 0
+ 
+     # When enabled, the 'Scroll Mouse' GUI will not be shown.
+     user.mouse_hide_mouse_gui = 0
+ 
+     # Hide cursor when mouse_wake is called to enable zoom mouse
+-    user.mouse_wake_hides_cursor = 0
++    user.mouse_wake_hides_cursor = 1
+ 
+     # The amount to scroll up/down (equivalent to mouse wheel on Windows by default)
+     user.mouse_wheel_down_amount = 120
+@@ -47,5 +47,9 @@ settings():
+     # per-application basis.
+     # user.context_sensitive_dictation = 1
+ 
++    # --jp--
++    speech.record_all = 1
++    speech.timeout = 0.150
++
+ # uncomment tag to enable mouse grid
+ # tag(): user.mouse_grid_enabled
+diff --git a/settings/additional_words.csv b/settings/additional_words.csv
+new file mode 100644
+index 00000000..c644d2c0
+--- /dev/null
++++ b/settings/additional_words.csv
+@@ -0,0 +1,37 @@
++Word(s),Spoken Form (If Different)
++nmap
++admin
++Cisco
++Citrix
++VPN
++DNS
++Minecraft
++nmap,N map
++under-documented,under documented
++URL
++HTTP
++HTTPS
++EA
++CEA
++epistemic
++epistemics
++dev
++JP
++asana,uh sauna
++API
++USD
++GBP
++AWS
++parfit
++aletheia
++app
++frontpage,front page
++tech
++async
++torble
++JWT
++OKR
++null
++destructure
++destructured
++zap
+diff --git a/settings/words_to_replace.csv b/settings/words_to_replace.csv
+new file mode 100644
+index 00000000..e1c1851b
+--- /dev/null
++++ b/settings/words_to_replace.csv
+@@ -0,0 +1,30 @@
++Replacement,Original
++I,i
++I'm,i'm
++I've,i've
++I'll,i'll
++I'd,i'd
++Monday,monday
++Mondays,mondays
++Tuesday,tuesday
++Tuesdays,tuesdays
++Wednesday,wednesday
++Wednesdays,wednesdays
++Thursday,thursday
++Thursdays,thursdays
++Friday,friday
++Fridays,fridays
++Saturday,saturday
++Saturdays,saturdays
++Sunday,sunday
++Sundays,sundays
++January,january
++February,february
++April,april
++June,june
++July,july
++August,august
++September,september
++October,october
++November,november
++December,december
+diff --git a/text/line_commands.talon b/text/line_commands.talon
+index 5715aaf5..fd78b216 100644
+--- a/text/line_commands.talon
++++ b/text/line_commands.talon
+@@ -3,10 +3,10 @@ tag: user.line_commands
+ #this defines some common line commands. More may be defined that are ide-specific.
+ lend: edit.line_end()
+ bend: edit.line_start()
+-go <number>: edit.jump_line(number)
+-go <number> end: 
+-    edit.jump_line(number)
+-    edit.line_end()
++# go <number>: edit.jump_line(number)
++# go <number> end: 
++#     edit.jump_line(number)
++#     edit.line_end()
+ comment [line] <number>:
+     user.select_range(number, number)
+     code.toggle_comment()
+diff --git a/text/symbols.talon b/text/symbols.talon
+index 163c4f59..41fb4e63 100644
+--- a/text/symbols.talon
++++ b/text/symbols.talon
+@@ -2,7 +2,7 @@ question [mark]: "?"
+ (downscore | underscore): "_"
+ double dash: "--"
+ (bracket | brack | left bracket): "{"
+-(rbrack | are bracket | right bracket): "}"
++(rbrack | are bracket | right bracket | racket): "}"
+ triple quote: "'''"
+ (triple grave | triple back tick | gravy):
+     insert("```")
+@@ -11,8 +11,8 @@ ellipses: "..."
+ (comma and | spamma): ", "
+ plus: "+"
+ arrow: "->"
+-dub arrow: "=>"
+-new line: "\\n"
++fat arrow: "=>"
++# new line: "\\n"
+ carriage return: "\\r"
+ line feed: "\\r\\n"
+ empty dubstring:
+@@ -65,6 +65,6 @@ percent that:
+ quote that:
+     text = edit.selected_text()
+     user.paste('"{text}"')
+-(grave | back tick) that:
++(grave | [back] tick) that:
+     text = edit.selected_text()
+     user.paste('`{text}`')

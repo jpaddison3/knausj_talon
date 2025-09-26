@@ -103,6 +103,10 @@ settings():
     # Time in seconds to wait for the clipboard to change when trying to get selected text
     # user.selected_text_timeout = 0.25
 
+    # --jp custom settings--
+    speech.record_all = 1
+    speech.timeout = 0.300
+
 # Uncomment to enable the curse yes/curse no commands (show/hide mouse cursor).
 # See issue #688 for more detail: https://github.com/talonhub/community/issues/688
 # tag(): user.mouse_cursor_commands_enable
