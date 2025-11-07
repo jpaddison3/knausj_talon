@@ -10,9 +10,12 @@ enter: keypad_enter
 page down: pagedown
 page up: pageup
 escape: escape
+scape: escape
 space: space
 tab: tab
 insert: insert
 wipe: backspace
-delete: backspace
+delete: delete
 forward delete: delete
+junk: backspace
+ending: end

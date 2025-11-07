@@ -1,0 +1,16 @@
+list: user.system_paths
+hostname: ninian
+-
+user: /Users/jpaddison
+desktop: /Users/jpaddison/Desktop
+desk: /Users/jpaddison/Desktop
+documents: /Users/jpaddison/Documents
+docks: /Users/jpaddison/Documents
+downloads: /Users/jpaddison/Downloads
+music: /Users/jpaddison/Music
+pictures: /Users/jpaddison/Pictures
+videos: /Users/jpaddison/Videos
+talon home: /Users/jpaddison/.talon
+talon recordings: /Users/jpaddison/.talon/recordings
+talon user: /Users/jpaddison/.talon/user
+home: /Users/jpaddison

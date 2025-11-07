@@ -6,6 +6,7 @@ tag(): user.emoji
 # Workspace
 workspace <number>: user.slack_open_workspace(number)
 # Channel
+channel: key(cmd-k)  # JP custom - quick channel switcher
 (slack | lack) [channel] info: user.slack_show_channel_info()
 focus (move | next): key(ctrl-`)
 (section | zone) [next]: user.slack_section_next()

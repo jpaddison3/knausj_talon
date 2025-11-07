@@ -1,5 +1,9 @@
 mode: dictation
 -
+settings():
+    # Longer timeout for dictation mode (JP custom)
+    speech.timeout = 0.600
+
 ^press <user.modifiers>$: key(modifiers)
 ^press <user.keys>$: key(keys)
 

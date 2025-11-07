@@ -54,10 +54,10 @@ currency_symbols = [
 ]
 
 symbols = [
-    Symbol("`", ["back tick"], ["grave"]),
+    Symbol("`", ["back tick"], ["grave", "tick"]),
     Symbol(",", ["comma", "coma"]),
     Symbol(".", ["period", "full stop"], ["dot", "point"]),
-    Symbol(";", ["semicolon"]),
+    Symbol(";", ["semicolon"], ["semi"]),
     Symbol(":", ["colon"]),
     Symbol("?", ["question mark"], ["question"]),
     Symbol("!", ["exclamation mark", "exclamation point"], ["bang"]),
@@ -72,7 +72,7 @@ symbols = [
     Symbol("~", None, ["tilde"]),
     Symbol("_", None, ["down score", "underscore"]),
     Symbol("(", ["paren", "L paren", "left paren"], None),
-    Symbol(")", ["R paren", "right paren"], None),
+    Symbol(")", ["R paren", "right paren"], ["right pra"]),
     Symbol("[", None,["brack", "L brack", "bracket", "L bracket", "left bracket", "square", "L square", "left square",],),
     Symbol("]", None, ["R brack", "R bracket", "right bracket", "R square", "right square"]),
     Symbol("/", ["forward slash"], ["slash"]),
