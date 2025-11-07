@@ -35,6 +35,12 @@ screen lock:
     user.mouse_sleep()
     speech.disable()
     key("cmd-ctrl-alt-l")
+
+# Wispr Flow integration
+whisper:
+    key("cmd-alt-space")
+    speech.disable()
+
 sauna save:
     edit.select_all()
     edit.cut()
